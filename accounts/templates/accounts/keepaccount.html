@@ -1,0 +1,65 @@
+{% extends 'accounts/index.html' %}
+{% block content%}
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li class="active">Forms</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Forms</h1>
+			</div>
+		</div><!--/.row-->
+				
+		
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-success">
+					<div class="panel-heading">Form Elements</div>
+					<div class="panel-body">
+						<div class="col-md-12">
+							<form class="form-horizontal" role="form"   action="" method='post'>
+								{% csrf_token %}
+								<div class="form-group">
+									<label  class="col-lg-2 control-label">名称</label>
+									<div class="col-lg-3">{{ keepaccountform.name }}</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-lg-2 control-label">金额</label>
+									<div class="col-lg-3"><input class="form-control" id="id_money" name="money"
+																 type="number" step="0.01" required=""></div>
+								</div>
+								<div class="form-group">
+									<label  class="col-lg-2 control-label">类型</label>
+									<div class="col-lg-3">{{ keepaccountform.type }}</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-lg-2 control-label">所属</label>
+									<div class="col-lg-3">
+										<select class="form-control" id="id_who" name="who" required>
+											<option value="" selected="selected">请选择所属...</option>
+											{% for who in whos%}
+												<option value="{{ who.id }}">{{ who.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-lg-2 control-label">日期</label>
+									<div class="col-lg-6">{{ keepaccountform.date }}</div>
+								</div>
+								</br></br>
+								<input class="btn btn-default center-block"  type="submit" value="保存">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.col-->
+		</div><!-- /.row -->
+		
+	</div><!--/.main-->
+{% endblock content%}

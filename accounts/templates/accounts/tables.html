@@ -1,0 +1,81 @@
+{% extends 'accounts/index.html' %}
+{% load filter_money%}
+{% block content%}
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li class="active">Tables</li>
+			</ol>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Tables</h1>
+			</div>
+		</div><!--/.row-->
+
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Advanced Table</div>
+					<div class="well well-sm">
+						<div>
+							按类型：
+							<a href="/accounts/summary/">全部</a>
+							{% for type in types %}
+								<a href="?type_id={{type.id}}">{{ type.name }}</a>
+							{% endfor %}
+						</div>
+						<div>
+							按所属：
+							<a href="/accounts/summary/">全部</a>
+							{% for who in whos %}
+								<a href="?who_id={{who.id}}">{{ who.name }}</a>
+							{% endfor %}
+						</div>
+						<div>
+							按时间：
+							<a href="/accounts/summary/">全部</a>
+							<a href="?month={{times | date:'m' }}">本月</a>
+							<a href="?year={{times | date:'Y' }} {{ url }}">本年</a>
+						</div>
+					</div>
+
+					<div class="panel-body">
+						<table class="table table-bordered table-hover  table-striped" data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true"
+							   data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1"
+							   data-pagination="true" data-sort-name="date" data-sort-order="desc">
+						    <thead>
+						    <tr class="success">
+						        <th data-field="state" data-checkbox="true" >Item ID</th>
+						        <!--th data-field="id" data-sortable="true">Item ID</th-->
+						        <th data-field="name"  data-sortable="true">名称</th>
+						        <th data-field="money" data-sortable="true">金额</th>
+						        <th data-field="type" data-sortable="true">类型</th>
+						        <th data-field="who" data-sortable="true">所属</th>
+						        <th data-field="date" data-sortable="true">日期</th>
+						    </tr>
+						    </thead>
+							<tbody>
+								{% for item in account_list %}
+								<tr>
+									<td data-field="state" data-checkbox="true">{{ item.id }}</td>
+									<!--td>{{ item.id }}</td-->
+									<td>{{ item.name }}</td>
+									<td>{{ item.money |fenToyuan }}</td>
+									<td>{{ item.type }}</td>
+									<td>{{ item.who }}</td>
+									<td>{{ item.date | date:"Y-m-d"  }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div><!--/.main-->
+{% endblock content%}
+
